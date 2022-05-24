@@ -3,6 +3,7 @@ export default function GenericLoginScreen(props){
 
     return(
         <MainLoginScreen>
+            <img src='../assets/images/TrackIt.svg' alt=''/>
             {props.children}
         </MainLoginScreen>
     );
