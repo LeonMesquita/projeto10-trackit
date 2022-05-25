@@ -15,13 +15,14 @@ export default function GenericHabitsScreen(props){
             <Footer>
                 <div>
                     <p>Hábitos</p>
+                    <TodayStatus>
+                        Hoje
+                    </TodayStatus>
                     <p>Histórico</p>
                 </div>
             </Footer>
 
-            <TodayStatus>
 
-            </TodayStatus>
 
         </MainHabitsScreen>
     )
@@ -103,6 +104,7 @@ const Footer = styled.div`
         align-items: center;
         justify-content: space-between;
         margin: auto;
+        position: relative;
     }
 
     p{
@@ -118,12 +120,19 @@ const Footer = styled.div`
 
 `
 
-const TodayStatus = styled.div`
-    width: 91px;
-    height: 91px;
+const TodayStatus = styled.span`
+    width: 100px;
+    height: 100px;
     background: #52B6FF;
-    position: fixed;
     bottom: 10px;
-    left: 40%;
+    left: 37%;
     border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 18px;
+    
 `
