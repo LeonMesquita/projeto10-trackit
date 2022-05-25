@@ -92,7 +92,7 @@ name: "awad"
                 </div>
                 {
                     isCardActive ? 
-                    <HabitCard>
+                    <HabitCard  position="relative">
                             <input type="text" value={habit} placeholder="nome do hábito" onChange={(e) => setHabit(e.target.value)}/>
                             <DaysDiv>
                               {weekdays.map((day, index) => 
@@ -183,7 +183,7 @@ const HabitCard = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    position: relative;
+    position: ${props => props.position ? props.position : "inherit"};
 
     input{
         border: 1px solid #D5D5D5;
@@ -222,6 +222,7 @@ const ActionButton = styled.button`
     font-family: 'Lexend Deca';
     font-weight: 700;
     cursor: pointer;
+    
 `
 
 
