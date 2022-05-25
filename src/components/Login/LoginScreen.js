@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import GenericLoginScreen from '../reusable-components/GenericLoginScreen';
 import axios from 'axios';
-export default function LoginScreen({setToken}){
+import UserContext from '../../contexts/UserContext';
+export default function LoginScreen(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const {setToken} = useContext(UserContext);
 
     function submitLogin(event){
         event.preventDefault();

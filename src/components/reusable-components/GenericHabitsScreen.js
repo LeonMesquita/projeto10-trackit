@@ -36,6 +36,7 @@ const MainHabitsScreen = styled.div`
     min-height: 100vh;
     position: relative;
     margin: auto;
+    padding-bottom: 150px;
 
 
 
