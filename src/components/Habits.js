@@ -10,7 +10,8 @@ export default function Habits(){
     const [habit, setHabit] = useState('');
     const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays} = useContext(UserContext);
 
-    const weekdays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+    const weekdays = [
+        'D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
     useEffect(() => {
         const config = {
@@ -80,10 +81,10 @@ name: "awad"
     return(
         <GenericHabitsScreen>
             <MyHabits>
-                <div>
+                <MyHabitsDiv>
                     <p>Meus hábitos</p>
                     <AddButton onClick={() => setIsCardActive(true)}>+</AddButton>                  
-                </div>
+                </MyHabitsDiv>
                 {
                     isCardActive ? 
                     <HabitCard  position="relative">
@@ -115,7 +116,11 @@ name: "awad"
                     <HabitCard>
                         <h4>{habit.name}</h4>
                         <DaysDiv align="baseline" bottom="15px">
-                            {habit.days.map((day) => <WeekDays dayText={day}/>)}
+                            {weekdays.map((day, index) => 
+                                <ShowDays background={habit.days.includes(index)
+                                ?
+                                "#CFCFCF" : "white"}>{day}
+                                </ShowDays>)}
                         </DaysDiv>
                     </HabitCard>)    
                 }  
@@ -136,11 +141,7 @@ const MyHabits = styled.div`
     margin: auto;
     font-family: 'Lexend Deca',sans-serif;
 
-    div{
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-    }
+
 
     p{
 
@@ -153,6 +154,13 @@ const MyHabits = styled.div`
 
 
 
+`
+
+const MyHabitsDiv = styled.div`
+
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
 `
 
 const AddButton = styled.button`
@@ -230,5 +238,23 @@ const DaysDiv = styled.p`
         margin-bottom: ${props => props.bottom ? props.bottom : "70px"};
         align-self: baseline;
         margin-left: 20px;
+
+`
+
+
+const ShowDays = styled.div`
+        background: ${props => props.background};
+        color: ${props => props.background === "#CFCFCF" ? "white" : "#CFCFCF"};
+        border: 1px solid #D5D5D5;
+        border-radius: 5px;
+        width: 30px;
+        height: 30px;
+        font-family: 'Lexend Deca';
+        margin-right: 4px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
 
 `
