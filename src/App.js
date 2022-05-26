@@ -9,8 +9,10 @@ import { useState } from "react";
 import UserContext from "./contexts/UserContext";
 export default function App(){
     const [token, setToken] = useState(null);
+    const [selectedDays, setSelectedDays] = useState([]);
+    const [listOfHabits, setListOfHabits] = useState([]);
     return (
-        <UserContext.Provider value={{token, setToken}}>
+        <UserContext.Provider value={{token, setToken, listOfHabits, setListOfHabits, selectedDays, setSelectedDays}}>
         <BrowserRouter>
             <Routes>
                 <Route path="/cadastro" element={<RegisterScreen />}/>

@@ -5,11 +5,10 @@ import axios from 'axios';
 import UserContext from "../contexts/UserContext";
 import WeekDays from "./WeekDays";
 export default function Habits(){
-    const [listOfHabits, setListOfHabits] = useState([]);
+
     const [isCardActive, setIsCardActive] = useState(true);
     const [habit, setHabit] = useState('');
-    const {token} = useContext(UserContext);
-    const [selectedDays, setSelectedDays] = useState([]);
+    const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays} = useContext(UserContext);
 
     const weekdays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
@@ -28,15 +27,10 @@ export default function Habits(){
         })
     }, [])
 
-    function selectDay(index){
-        const aux = [...selectedDays, index];
-        setSelectedDays(aux);
-    }
-
-
 
     function addNewHabit(event){
         event.preventDefault();
+        console.log(selectedDays);
 
         const config = {
             headers: {
@@ -51,7 +45,7 @@ export default function Habits(){
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", habitBody, config);
        promise.then(response => {
-           console.log(response.data);
+          // console.log(response.data);
            const aux = [...listOfHabits, response.data];
            setListOfHabits(aux);
 
@@ -96,12 +90,12 @@ name: "awad"
                             <input type="text" value={habit} placeholder="nome do hábito" onChange={(e) => setHabit(e.target.value)}/>
                             <DaysDiv>
                               {weekdays.map((day, index) => 
-                              <WeekDays key={index}
+                              <WeekDays key={index}index={index}
                                         background={index % 2 === 1 ? "#CFCFCF" : "white"}
                                         textColor= {index % 2 === 0 ? "#CFCFCF" : "white"}
                                         dayText={day}
 
-                                        onClick={() => selectDay(index)}
+                                      
                                />)}  
                             </DaysDiv>
                             
@@ -120,7 +114,7 @@ name: "awad"
                 listOfHabits.map((habit) => 
                     <HabitCard>
                         <h4>{habit.name}</h4>
-                        <DaysDiv>
+                        <DaysDiv align="baseline" bottom="15px">
                             {habit.days.map((day) => <WeekDays dayText={day}/>)}
                         </DaysDiv>
                     </HabitCard>)    
@@ -191,6 +185,8 @@ const HabitCard = styled.div`
         width: 303px;
         height: 45px;
         margin-top: 20px;
+        align-self: baseline;
+        margin-left: 20px;
     }
 
     span{
@@ -209,6 +205,7 @@ const HabitCard = styled.div`
         color: #666666;
         align-self: baseline;
         margin-left: 15px;
+        margin-top: 18px;
     }
 `
 
@@ -230,6 +227,8 @@ const DaysDiv = styled.p`
         width: 300px;
         display: flex;
         margin-top: 8px;
-        margin-bottom: 70px;
+        margin-bottom: ${props => props.bottom ? props.bottom : "70px"};
+        align-self: baseline;
+        margin-left: 20px;
 
 `

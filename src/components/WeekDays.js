@@ -1,8 +1,33 @@
 import styled from 'styled-components';
+import { useState, useContext } from 'react';
+import UserContext from '../contexts/UserContext';
+export default function WeekDays({dayText, onClick, index}){
+    const [buttonColor, setButtonColor] = useState("white");
+    const [textColor, setTextColor] = useState("#CFCFCF");
+    const [isActive, setIsActive] = useState(false);
 
-export default function WeekDays({background, textColor, dayText, onClick}){
+    const {selectedDays, setSelectedDays} = useContext(UserContext);
+
+    function onClickButton(key){
+        let cond = !isActive;
+        setIsActive(!isActive);
+        if (cond){
+            setButtonColor("#CFCFCF");
+            setTextColor("white");
+            let aux = [...selectedDays, key];
+            setSelectedDays(aux);
+        }
+            
+        else{
+            setButtonColor("white");
+            setTextColor("#CFCFCF");
+           let aux = selectedDays.filter(day => day !== key);
+            setSelectedDays(aux);
+        }
+            
+    }
     return(
-        <Day background={background} textColor={textColor} onClick={onClick}>
+        <Day background={buttonColor} textColor={textColor} onClick={() => onClickButton(index)}>
             <h5>{dayText}</h5>
         </Day>
     );
