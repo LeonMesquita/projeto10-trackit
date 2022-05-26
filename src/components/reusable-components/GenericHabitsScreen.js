@@ -48,7 +48,7 @@ const MainHabitsScreen = styled.div`
     position: relative;
     margin: auto;
     padding-bottom: 150px;
-    position: relative;
+
 
     
 

@@ -4,10 +4,13 @@ import {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import UserContext from "../contexts/UserContext";
 import WeekDays from "./WeekDays";
+import ConfirmationDialog from "./reusable-components/ConfirmationDialog";
 export default function Habits(){
 
     const [isCardActive, setIsCardActive] = useState(true);
     const [habit, setHabit] = useState('');
+    const [showDialog, setShowDialog] = useState(false);
+    const [selectedToDelete, setSelectedToDelete] = useState(null);
     const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays} = useContext(UserContext);
 
     const weekdays = [
@@ -24,7 +27,7 @@ export default function Habits(){
 
         promise.then(response => {
             setListOfHabits(response.data);
-        })
+        });
     }, []);
 
 
@@ -45,7 +48,6 @@ export default function Habits(){
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", habitBody, config);
        promise.then(response => {
-          // console.log(response.data);
            const aux = [...listOfHabits, response.data];
            setListOfHabits(aux);
 
@@ -57,6 +59,35 @@ export default function Habits(){
         setSelectedDays([]);
         setHabit("");
 
+    }
+
+    function onclickDelete(habitID){
+        setShowDialog(true);
+        setSelectedToDelete(habitID);
+    }
+
+
+    function deleteHabit(){
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${selectedToDelete}`, config);
+
+        promise.then(response => {
+            const promise2 = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+
+            promise2.then(response => {
+                setListOfHabits(response.data);
+                setShowDialog(false);
+                setSelectedToDelete(null);
+            });
+        })
+
+        
     }
 
     /*
@@ -86,7 +117,7 @@ name: "awad"
                 </MyHabitsDiv>
                 {
                     isCardActive ? 
-                    <HabitCard  position="relative">
+                    <HabitCard>
                             <input type="text" value={habit} placeholder="nome do hábito" onChange={(e) => setHabit(e.target.value)}/>
                             <DaysDiv>
                               {weekdays.map((day, index) => 
@@ -121,10 +152,18 @@ name: "awad"
                                 "#CFCFCF" : "white"}>{day}
                                 </ShowDays>)}
                         </DaysDiv>
+                        <DeleteButton onClick={() => onclickDelete(habit.id)}>
+                            <ion-icon name="trash"></ion-icon>
+                        </DeleteButton>
                     </HabitCard>)    
                 }  
 
             </MyHabits>
+
+            {showDialog ?
+                <ConfirmationDialog message="Tem certeza de que deseja excluir o hábito?"
+                    onclickYes={deleteHabit} onclickNo={() => setShowDialog(false)}/>
+            : null}
         </GenericHabitsScreen>
     );
 }
@@ -183,7 +222,7 @@ const HabitCard = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: ${props => props.top ? props.top : "20px"};
-    position: ${props => props.position ? props.position : "inherit"};
+    position: relative;
 
     input{
         border: 1px solid #D5D5D5;
@@ -253,6 +292,24 @@ const ShowDays = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        
+`
+
+
+const DeleteButton = styled.button`
+    position: absolute;
+    right: 10px;
+    top: 11px;
+    
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+
+    ion-icon{
+        width: 17px;
+        height: 17px;
+        color: #666666;
+    }
+
+
 
 `

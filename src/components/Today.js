@@ -71,10 +71,14 @@ function CheckButton(){
 
 
 const TodayCompleted = styled.div`
+    margin: auto;
     padding-top: 100px;
     width: 375px;
-    margin-left: 50px;
+
+
+    
     margin-bottom: 28px;
+    
 
     p{
     font-style: normal;
@@ -82,6 +86,10 @@ const TodayCompleted = styled.div`
     font-size: 22.976px;
     line-height: 29px;
     color: #126BA5;
+    margin-left: 20px;
+
+    
+    
     }
 
     h2{
@@ -91,6 +99,8 @@ const TodayCompleted = styled.div`
         font-size: 17px;
         line-height: 22px;
         color: #BABABA;
+        margin-left: 20px;
+
     }
 `
 
