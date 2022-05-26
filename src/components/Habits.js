@@ -23,10 +23,9 @@ export default function Habits(){
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
 
         promise.then(response => {
-           // console.log(response);
             setListOfHabits(response.data);
         })
-    }, [])
+    }, []);
 
 
     function addNewHabit(event){
@@ -113,7 +112,7 @@ name: "awad"
                     </h3>
                     :
                 listOfHabits.map((habit) => 
-                    <HabitCard>
+                    <HabitCard top="10px">
                         <h4>{habit.name}</h4>
                         <DaysDiv align="baseline" bottom="15px">
                             {weekdays.map((day, index) => 
@@ -177,14 +176,13 @@ const AddButton = styled.button`
 
 const HabitCard = styled.div`
     width: 350px;
-
     background-color: white;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: ${props => props.top ? props.top : "20px"};
     position: ${props => props.position ? props.position : "inherit"};
 
     input{

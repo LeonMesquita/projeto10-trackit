@@ -1,3 +1,9 @@
+import GenericHabitsScreen from "./reusable-components/GenericHabitsScreen";
+
 export default function History(){
-    return <><h1>histórico</h1></>
+    return(
+        <GenericHabitsScreen>
+            
+        </GenericHabitsScreen>
+    );
 }

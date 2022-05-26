@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import {Link} from 'react-router-dom';
 export default function GenericHabitsScreen(props){
     return(
 
@@ -14,11 +14,22 @@ export default function GenericHabitsScreen(props){
 
             <Footer>
                 <div>
-                    <p>Hábitos</p>
-                    <TodayStatus>
-                        Hoje
-                    </TodayStatus>
-                    <p>Histórico</p>
+                    <Link to={"/habitos"}>
+                        <p>Hábitos</p>
+                    </Link>
+
+                    <Link to={"/hoje"}>
+                        <TodayStatus>
+                            Hoje
+                        </TodayStatus>
+                    </Link>
+
+                    <Link to={"/historico"}>
+                        <p>Histórico</p>
+                    </Link>
+                    
+
+                    
                 </div>
             </Footer>
 
@@ -37,6 +48,10 @@ const MainHabitsScreen = styled.div`
     position: relative;
     margin: auto;
     padding-bottom: 150px;
+    position: relative;
+
+    
+
 
 
 
@@ -117,6 +132,11 @@ const Footer = styled.div`
         line-height: 22px;
         text-align: center;
         color: #52B6FF;
+
+    }
+
+    a{
+        text-decoration: none;
 
     }
 
