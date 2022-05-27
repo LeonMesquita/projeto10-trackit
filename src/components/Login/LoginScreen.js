@@ -34,7 +34,6 @@ export default function LoginScreen(){
             navigate('/habitos', { replace: true });
         })
                .catch(error => {
-                   console.log(error);
                    setIsLoading(false);
                    setIsDisabled(false);
                    setInputBackground("white");

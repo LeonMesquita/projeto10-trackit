@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useContext } from 'react';
 import UserContext from '../contexts/UserContext';
-export default function WeekDays({dayText, onClick, index}){
+export default function WeekDays({dayText, index, isLoading}){
     const [buttonColor, setButtonColor] = useState("white");
     const [textColor, setTextColor] = useState("#CFCFCF");
     const [isActive, setIsActive] = useState(false);
@@ -27,7 +27,7 @@ export default function WeekDays({dayText, onClick, index}){
             
     }
     return(
-        <Day background={buttonColor} textColor={textColor} onClick={() => onClickButton(index)}>
+        <Day background={buttonColor} textColor={textColor} onClick={() => isLoading ? null : onClickButton(index)}>
             <h5>{dayText}</h5>
         </Day>
     );

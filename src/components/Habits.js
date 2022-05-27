@@ -5,14 +5,18 @@ import axios from 'axios';
 import UserContext from "../contexts/UserContext";
 import WeekDays from "./WeekDays";
 import ConfirmationDialog from "./reusable-components/ConfirmationDialog";
+import LoaderSpinner from "./reusable-components/LoaderSpinner";
 export default function Habits(){
 
-    const [isCardActive, setIsCardActive] = useState(true);
+    const [isCardActive, setIsCardActive] = useState(false);
     const [habit, setHabit] = useState('');
     const [showDialog, setShowDialog] = useState(false);
     const [selectedToDelete, setSelectedToDelete] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays, todayHabits, setTodayHabits, setTotalOfHabits} = useContext(UserContext);
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [inputBackground, setInputBackground] = useState("#fffff");
+    const [opacity, setOpacity] = useState(1);
+    const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays} = useContext(UserContext);
 
     const weekdays = [
         'D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
@@ -38,8 +42,10 @@ export default function Habits(){
 
     function addNewHabit(event){
         event.preventDefault();
-        console.log(selectedDays);
-
+        setIsLoading(true);
+        setIsDisabled(true);
+        setInputBackground("#F2F2F2");
+        setOpacity(0.7);
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -55,6 +61,10 @@ export default function Habits(){
        promise.then(response => {
            const aux = [...listOfHabits, response.data];
            setListOfHabits(aux);
+           setIsLoading(false);
+           setIsDisabled(false);
+           setInputBackground("white");
+           setOpacity(1);
 
        })
               .catch(error =>{
@@ -95,24 +105,6 @@ export default function Habits(){
         
     }
 
-    /*
-    Object { id: 19784, name: "awad", days: (2) […] }
-​
-days: Array [ 0, 2 ]
-​​
-0: 0
-​​
-1: 2
-​​
-length: 2
-​​
-<prototype>: Array []
-​
-id: 19784
-​
-name: "awad"
-    
-    */
     return(
         <GenericHabitsScreen>
             <MyHabits>
@@ -122,22 +114,23 @@ name: "awad"
                 </MyHabitsDiv>
                 {
                     isCardActive ? 
-                    <HabitCard>
-                            <input type="text" value={habit} placeholder="nome do hábito" onChange={(e) => setHabit(e.target.value)}/>
+                    <HabitCard inputBackground={inputBackground}>
+                            <input disabled={isDisabled} type="text" value={habit} placeholder="nome do hábito" onChange={(e) => setHabit(e.target.value)}/>
                             <DaysDiv>
                               {weekdays.map((day, index) => 
                               <WeekDays key={index}index={index}
                                         background={index % 2 === 1 ? "#CFCFCF" : "white"}
                                         textColor= {index % 2 === 0 ? "#CFCFCF" : "white"}
                                         dayText={day}
+                                        isLoading={isLoading}
 
                                       
                                />)}  
                             </DaysDiv>
                             
                             <span>
-                                <ActionButton background="transparent" textColor="#52B6FF">Cancelar</ActionButton>
-                                <ActionButton background="#52B6FF" textColor="white" onClick={addNewHabit}>Salvar</ActionButton>
+                                <ActionButton onClick={() => setIsCardActive(false)} background="transparent" textColor="#52B6FF">Cancelar</ActionButton>
+                                <ActionButton opacity={opacity} background="#52B6FF" textColor="white" onClick={addNewHabit}>{isLoading ? <LoaderSpinner /> : "Salvar"}</ActionButton>
                             </span>
                     </HabitCard>
                     : null
@@ -215,6 +208,7 @@ const AddButton = styled.button`
     cursor: pointer;
     font-size: 30px;
     color: white;
+
 `
 
 
@@ -237,6 +231,7 @@ const HabitCard = styled.div`
         margin-top: 20px;
         align-self: baseline;
         margin-left: 20px;
+        background-color: ${props => props.inputBackground};
     }
 
     span{
@@ -269,6 +264,10 @@ const ActionButton = styled.button`
     font-family: 'Lexend Deca';
     font-weight: 700;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: ${props => props.opacity};
     
 `
 
