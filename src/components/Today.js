@@ -98,9 +98,6 @@ const TodayCompleted = styled.div`
     line-height: 29px;
     color: #126BA5;
     margin-left: 20px;
-
-    
-    
     }
 
     h2{
@@ -127,6 +124,24 @@ const HabitStatusCard = styled.div`
 
     span{
         margin-left: 15px;
+    }
+
+    h4{
+        font-family: 'Lexend Deca',sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        color: #666666;
+    }
+
+    h5{
+        font-family: 'Lexend Deca',sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12.976px;
+        line-height: 16px;
+        color: #666666;
     }
 `
 

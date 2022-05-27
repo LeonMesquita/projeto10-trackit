@@ -187,5 +187,6 @@ const TodayStatus = styled.span`
 
     color: white;
     font-size: 18px;
+    font-weight: 700;
     
 `
