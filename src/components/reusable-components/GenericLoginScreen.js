@@ -2,7 +2,7 @@ import styled from 'styled-components';
 export default function GenericLoginScreen(props){
 
     return(
-        <MainLoginScreen>
+        <MainLoginScreen opacity={props.buttonOpacity} inputBackground={props.inputBackground}>
             <img src='../assets/images/TrackIt.svg' alt=''/>
             {props.children}
         </MainLoginScreen>
@@ -40,6 +40,8 @@ const MainLoginScreen = styled.div`
         border: 1px solid #D5D5D5;
         border-radius: 5px;
         margin-bottom: 6px;
+        
+        background-color: ${props => props.inputBackground ? props.inputBackground : "white"};
 
         ::placeholder{
             font-style: normal;
@@ -49,6 +51,8 @@ const MainLoginScreen = styled.div`
             color: #DBDBDB;
             font-family: 'Lexend Deca';
         }
+
+        
     }
 
 
@@ -66,6 +70,10 @@ const MainLoginScreen = styled.div`
         text-align: center;
         color: white;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: ${props => props.opacity ? props.opacity : 1};
     }
 
 
