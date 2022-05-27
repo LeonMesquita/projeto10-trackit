@@ -1,9 +1,27 @@
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import {Link, useSearchParams} from 'react-router-dom';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { useContext, useEffect } from 'react';
+import UserContext from '../../contexts/UserContext';
+import axios from 'axios';
+import { useState } from 'react';
 export default function GenericHabitsScreen(props){
+    const {donePercent, setDonePercent, todayHabits, setTodayHabits, authorization} = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", authorization);
+        let doneCount = 0;
+        promise.then(response => {
+            setTodayHabits(response.data);
+            response.data.map((habit) => {if (habit.done) doneCount++});
+            setDonePercent(doneCount);
+            setIsLoading(false);
+        })
+    }, [])
     return(
 
-        <MainHabitsScreen>
+       isLoading ? null : <MainHabitsScreen>
             <NavBar>
                 <div>
                     <h2>Trackit</h2>
@@ -20,7 +38,19 @@ export default function GenericHabitsScreen(props){
 
                     <Link to={"/hoje"}>
                         <TodayStatus>
-                            Hoje
+                        <CircularProgressbar 
+                            minValue={0}
+                            maxValue={todayHabits.length}
+                            value={donePercent} text={`Hoje`}
+                            styles={buildStyles({
+                            
+                                pathColor: `white`,
+                                textColor: 'white',
+                                trailColor: 'transparent',
+                                backgroundColor: '#3e98c7',
+                            })}
+                
+                        />
                         </TodayStatus>
                     </Link>
 
@@ -153,6 +183,7 @@ const TodayStatus = styled.span`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 6px;
 
     color: white;
     font-size: 18px;

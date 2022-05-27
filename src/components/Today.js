@@ -4,40 +4,16 @@ import { useContext, useEffect } from "react";
 import UserContext from "../contexts/UserContext";
 import axios from 'axios';
 import { useState } from "react";
+
 //import dayjs from 'dayjs'
 export default function Today(){
-    const {listOfHabits, setListOfHabits, token} = useContext(UserContext);
-    const [todayHabits, setTodayHabits] = useState([]);
+    const {listOfHabits, setListOfHabits, token, donePercent, setDonePercent, todayHabits} = useContext(UserContext);
+    
+    
+    
    // const dayjs = require('dayjs');
    // const today = dayjs().format();
 
-    useEffect(() => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
-
-        promise.then(response => {
-            setTodayHabits(response.data);
-        })
-    }, []);
-
-
-    /*
-    [
-    {
-        "id": 3,
-        "name": "Acordar",
-        "done": true,
-        "currentSequence": 1,
-        "highestSequence": 1
-    }
-]
-    
-    */
     return(
         <GenericHabitsScreen>
             <TodayCompleted>
@@ -70,7 +46,7 @@ export default function Today(){
 function CheckButton({done, habitID}){
     const [buttonColor, setButtonColor] = useState(done ? "#8FC549" :"#EBEBEB");
     const [itsDone, setItsDone] = useState(done);
-    const {authorization} = useContext(UserContext);
+    const {authorization, donePercent, setDonePercent} = useContext(UserContext);
    
 
     function clickButton(){
@@ -79,6 +55,7 @@ function CheckButton({done, habitID}){
             promise.then(response => {
                 setButtonColor("#8FC549");
                 setItsDone(!itsDone);
+                setDonePercent(donePercent+1);
             })
             .catch(error => {
                 console.log(error);
@@ -89,6 +66,7 @@ function CheckButton({done, habitID}){
            promise.then(response => {
                setButtonColor("#EBEBEB");
                setItsDone(!itsDone);
+               setDonePercent(donePercent-1);
            });
         }     
      

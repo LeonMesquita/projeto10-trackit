@@ -12,7 +12,7 @@ export default function Habits(){
     const [showDialog, setShowDialog] = useState(false);
     const [selectedToDelete, setSelectedToDelete] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays} = useContext(UserContext);
+    const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays, todayHabits, setTodayHabits, setTotalOfHabits} = useContext(UserContext);
 
     const weekdays = [
         'D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
@@ -28,6 +28,10 @@ export default function Habits(){
 
         promise.then(response => {
             setListOfHabits(response.data);
+
+ 
+
+            
         });
     }, []);
 
