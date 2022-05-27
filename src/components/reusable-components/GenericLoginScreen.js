@@ -73,7 +73,7 @@ const MainLoginScreen = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        opacity: ${props => props.opacity ? props.opacity : 1};
+        opacity: ${props => props.opacity};
     }
 
 
