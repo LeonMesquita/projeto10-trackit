@@ -11,8 +11,14 @@ export default function App(){
     const [token, setToken] = useState(null);
     const [selectedDays, setSelectedDays] = useState([]);
     const [listOfHabits, setListOfHabits] = useState([]);
+
+    const authorization = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
     return (
-        <UserContext.Provider value={{token, setToken, listOfHabits, setListOfHabits, selectedDays, setSelectedDays}}>
+        <UserContext.Provider value={{token, setToken, listOfHabits, setListOfHabits, selectedDays, setSelectedDays, authorization}}>
         <BrowserRouter>
             <Routes>
                 <Route path="/cadastro" element={<RegisterScreen />}/>

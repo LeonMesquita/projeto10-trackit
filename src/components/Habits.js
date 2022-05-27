@@ -11,6 +11,7 @@ export default function Habits(){
     const [habit, setHabit] = useState('');
     const [showDialog, setShowDialog] = useState(false);
     const [selectedToDelete, setSelectedToDelete] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays} = useContext(UserContext);
 
     const weekdays = [

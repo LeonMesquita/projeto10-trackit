@@ -4,8 +4,12 @@ import { useContext, useEffect } from "react";
 import UserContext from "../contexts/UserContext";
 import axios from 'axios';
 import { useState } from "react";
+//import dayjs from 'dayjs'
 export default function Today(){
     const {listOfHabits, setListOfHabits, token} = useContext(UserContext);
+    const [todayHabits, setTodayHabits] = useState([]);
+   // const dayjs = require('dayjs');
+   // const today = dayjs().format();
 
     useEffect(() => {
         const config = {
@@ -14,13 +18,26 @@ export default function Today(){
             }
         }
 
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
 
         promise.then(response => {
-            setListOfHabits(response.data);
+            setTodayHabits(response.data);
         })
     }, []);
 
+
+    /*
+    [
+    {
+        "id": 3,
+        "name": "Acordar",
+        "done": true,
+        "currentSequence": 1,
+        "highestSequence": 1
+    }
+]
+    
+    */
     return(
         <GenericHabitsScreen>
             <TodayCompleted>
@@ -28,18 +45,18 @@ export default function Today(){
                 <h2>Nenhum hábito concluído ainda</h2>
             </TodayCompleted>
 
-            {listOfHabits.length === 0 ? 
+            {todayHabits.length === 0 ? 
                     null
                     :
-                listOfHabits.map((habit) => 
+                    todayHabits.map((habit) => 
                     <HabitStatusCard>
-                        <p>
+                        <span>
                             <h4>{habit.name}</h4>
-                            <h5>Sequência atual: 3 dias</h5>
-                            <h5> Seu recorde: 5 dias</h5>       
-                       </p>
+                            <h5>Sequência atual: {habit.currentSequence} dias</h5>
+                            <h5> Seu recorde: {habit.highestSequence} dias</h5>       
+                       </span>
 
-                       <CheckButton />
+                       <CheckButton done={habit.done} habitID={habit.id} key={habit.id}/>
                         
                     </HabitStatusCard>    
                 )    
@@ -50,16 +67,32 @@ export default function Today(){
 }
 
 
-function CheckButton(){
-    const [buttonColor, setButtonColor] = useState("#EBEBEB");
-    const [itsDone, setItsDone] = useState(false);
+function CheckButton({done, habitID}){
+    const [buttonColor, setButtonColor] = useState(done ? "#8FC549" :"#EBEBEB");
+    const [itsDone, setItsDone] = useState(done);
+    const {authorization} = useContext(UserContext);
+   
+
     function clickButton(){
-        let cond = !itsDone;
-        setItsDone(cond);
-        cond ? 
-        setButtonColor("#8FC549")
-        :
-        setButtonColor("#EBEBEB");
+        if (!itsDone){
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitID}/check`, null, authorization);
+            promise.then(response => {
+                setButtonColor("#8FC549");
+                setItsDone(!itsDone);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+        else{
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitID}/uncheck`, null, authorization);
+           promise.then(response => {
+               setButtonColor("#EBEBEB");
+               setItsDone(!itsDone);
+           });
+        }     
+     
+
 
     }
     return(
@@ -114,7 +147,7 @@ const HabitStatusCard = styled.div`
     justify-content: space-between;
     margin-bottom: 10px;
 
-    p{
+    span{
         margin-left: 15px;
     }
 `
