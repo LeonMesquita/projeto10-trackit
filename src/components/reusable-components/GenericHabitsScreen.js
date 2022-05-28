@@ -7,7 +7,7 @@ import UserContext from '../../contexts/UserContext';
 import axios from 'axios';
 import { useState } from 'react';
 export default function GenericHabitsScreen(props){
-    const {donePercent, setDonePercent, todayHabits, setTodayHabits, authorization} = useContext(UserContext);
+    const {donePercent, setDonePercent, todayHabits, setTodayHabits, authorization, userPicture} = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", authorization);
@@ -25,7 +25,7 @@ export default function GenericHabitsScreen(props){
             <NavBar>
                 <div>
                     <h2>Trackit</h2>
-                    <img src='https://t.ctcdn.com.br/5XPASDBUosgmBv5Ptpxcd6eTJso=/512x288/smart/filters:format(webp)/i257652.jpeg' alt=''/>
+                    <img src={userPicture} alt=''/>
                 </div>
             </NavBar>
             {props.children}

@@ -8,7 +8,7 @@ export default function LoginScreen(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const {setToken} = useContext(UserContext);
+    const {setToken, setUserPicture} = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [inputBackground, setInputBackground] = useState("#fffff");
@@ -31,6 +31,7 @@ export default function LoginScreen(){
 
         promise.then(response => {
             setToken(response.data.token);
+            setUserPicture(response.data.image);
             navigate('/habitos', { replace: true });
         })
                .catch(error => {

@@ -5,16 +5,9 @@ import UserContext from "../contexts/UserContext";
 import axios from 'axios';
 import { useState } from "react";
 import dayjs from 'dayjs';
-
-
-//import dayjs from 'dayjs'
 export default function Today(){
-    const {listOfHabits, setListOfHabits, token, donePercent, setDonePercent, todayHabits} = useContext(UserContext);
-    
-    
+    const {donePercent, todayHabits} = useContext(UserContext);  
     const percent = calcPercent(donePercent, todayHabits.length);
-   // const dayjs = require('dayjs');
-   // const today = dayjs().format();
     const dayjs = require('dayjs');
     const currentDay =returnDayOfWeek(dayjs().day());
 
