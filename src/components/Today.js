@@ -4,21 +4,29 @@ import { useContext, useEffect } from "react";
 import UserContext from "../contexts/UserContext";
 import axios from 'axios';
 import { useState } from "react";
+import dayjs from 'dayjs';
+
 
 //import dayjs from 'dayjs'
 export default function Today(){
     const {listOfHabits, setListOfHabits, token, donePercent, setDonePercent, todayHabits} = useContext(UserContext);
     
     
-    
+    const percent = calcPercent(donePercent, todayHabits.length);
    // const dayjs = require('dayjs');
    // const today = dayjs().format();
+    const dayjs = require('dayjs');
+    const currentDay =returnDayOfWeek(dayjs().day());
 
     return(
         <GenericHabitsScreen>
             <TodayCompleted>
-                <p>Segunda, 17/05</p>
-                <h2>Nenhum hábito concluído ainda</h2>
+                <p>{currentDay}, {dayjs().date()}/{dayjs().month()}</p>
+                {donePercent === 0 ?
+                    <h2>Nenhum hábito concluído ainda</h2>
+                :
+                    <h3>{percent}% dos hábitos concluídos</h3>
+                }
             </TodayCompleted>
 
             {todayHabits.length === 0 ? 
@@ -103,11 +111,23 @@ const TodayCompleted = styled.div`
     h2{
         font-family: 'Lexend Deca';
         font-style: normal;
-        font-weight: 400;
+        font-weight: 700;
         font-size: 17px;
         line-height: 22px;
         color: #BABABA;
         margin-left: 20px;
+
+    }
+
+    h3{
+        font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    color: #8FC549;
+    margin-left: 20px;
+    margin-top: 0px;
 
     }
 `
@@ -156,3 +176,28 @@ const MarkHabit = styled.button`
     margin-bottom: 13px;
     cursor: pointer;
 `
+
+
+function returnDayOfWeek(day){
+    switch(day){
+        case 0:
+            return "Domingo"
+        case 1:
+            return "Segunda"
+        case 2:
+            return "Terça"
+        case 3:
+            return "Quarta"
+        case 4:
+            return "Quinta"
+        case 5:
+            return "Sexta"
+        case 6:
+            return "Sábado"
+    }
+}
+
+function calcPercent(valor, total){
+    const percent = (valor * 100)/total;
+    return percent;
+}
