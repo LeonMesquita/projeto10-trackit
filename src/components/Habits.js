@@ -169,7 +169,7 @@ export default function Habits(){
 
 const MyHabits = styled.div`
     padding-top: 100px;
-    width: 375px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;

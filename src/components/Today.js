@@ -18,7 +18,7 @@ export default function Today(){
                 {donePercent === 0 ?
                     <h2>Nenhum hábito concluído ainda</h2>
                 :
-                    <h3>{percent}% dos hábitos concluídos</h3>
+                    <h3>{percent.toFixed(2)}% dos hábitos concluídos</h3>
                 }
             </TodayCompleted>
 

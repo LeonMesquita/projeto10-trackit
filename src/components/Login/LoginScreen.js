@@ -14,6 +14,20 @@ export default function LoginScreen(){
     const [inputBackground, setInputBackground] = useState("#fffff");
     const [opacity, setOpacity] = useState(1);
 
+    const StorageUser= JSON.parse(localStorage.getItem("user"));
+    console.log(StorageUser)
+
+    if (StorageUser){
+        console.log(true);
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", StorageUser);
+        promise.then(response => {
+            setToken(response.data.token);
+            setUserPicture(response.data.image);
+            navigate('/habitos', { replace: true });
+        });
+    }
+
+
     function submitLogin(event){
         event.preventDefault();
         setIsLoading(true);
@@ -26,6 +40,9 @@ export default function LoginScreen(){
             email,
             password
         }
+
+        const convertedBody = JSON.stringify(body);
+        localStorage.setItem("user", convertedBody);
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body);
 
@@ -48,7 +65,8 @@ export default function LoginScreen(){
 
     }
     return(
-        <GenericLoginScreen buttonOpacity={opacity} inputBackground={inputBackground}>
+        !StorageUser ?
+            <GenericLoginScreen buttonOpacity={opacity} inputBackground={inputBackground}>
             <form onSubmit={isLoading ? onLoading : submitLogin}>
                 <input disabled={isDisabled} type="email" placeholder='email' required value={email} onChange={(e) => setEmail(e.target.value)}/>
                 <input disabled={isDisabled} type="password" placeholder='senha' required value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -60,5 +78,9 @@ export default function LoginScreen(){
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
         </GenericLoginScreen>
+        :
+        <LoaderSpinner />
+    
+
     );
 }
