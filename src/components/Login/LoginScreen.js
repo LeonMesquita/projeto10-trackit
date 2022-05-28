@@ -23,7 +23,7 @@ export default function LoginScreen(){
         promise.then(response => {
             setToken(response.data.token);
             setUserPicture(response.data.image);
-            navigate('/habitos', { replace: true });
+            navigate('/hoje', { replace: true });
         });
     }
 
@@ -49,7 +49,7 @@ export default function LoginScreen(){
         promise.then(response => {
             setToken(response.data.token);
             setUserPicture(response.data.image);
-            navigate('/habitos', { replace: true });
+            navigate('/hoje', { replace: true });
         })
                .catch(error => {
                    setIsLoading(false);
