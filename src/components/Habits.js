@@ -65,7 +65,7 @@ export default function Habits(){
            setIsDisabled(false);
            setInputBackground("white");
            setOpacity(1);
-
+            setIsCardActive(false);
        })
               .catch(error =>{
                   console.log(error);
@@ -73,6 +73,8 @@ export default function Habits(){
         
         setSelectedDays([]);
         setHabit("");
+
+
 
     }
 
@@ -123,8 +125,6 @@ export default function Habits(){
                                         textColor= {index % 2 === 0 ? "#CFCFCF" : "white"}
                                         dayText={day}
                                         isLoading={isLoading}
-
-                                      
                                />)}  
                             </DaysDiv>
                             
@@ -190,7 +190,7 @@ const MyHabits = styled.div`
     }
 
     @media(max-width: 375px) {
-        width: 100%;
+        width: 95%;
     }
 
 
@@ -260,7 +260,7 @@ const HabitCard = styled.div`
 
 
     @media(max-width: 375px) {
-        width: 100%;
+        width: 95%;
         padding-left: 5px;
         padding-right: 5px;
 
@@ -309,10 +309,12 @@ const ShowDays = styled.div`
         height: 30px;
         font-family: 'Lexend Deca';
         margin-right: 4px;
-
         display: flex;
         justify-content: center;
         align-items: center;
+
+        font-size: 20px;
+        font-weight: 400;
 `
 
 
@@ -329,6 +331,7 @@ const DeleteButton = styled.button`
         width: 17px;
         height: 17px;
         color: #666666;
+        opacity: 0.5;
     }
 
 

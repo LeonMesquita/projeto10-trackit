@@ -24,8 +24,8 @@ export default function GenericHabitsScreen(props){
        isLoading ? null : <MainHabitsScreen>
             <NavBar>
                 <div>
-                    <h2>Trackit</h2>
-                    <img src={userPicture} alt=''/>
+                    <img className='title' src='assets/images/title.png' alt=''/>
+                    <img className='profile-picture' src={userPicture} alt=''/>
                 </div>
             </NavBar>
             {props.children}
@@ -121,21 +121,8 @@ const NavBar = styled.div`
         justify-content: space-between;
     }
 
-    h2{
-        font-style: normal;
-        font-weight: 700;
-        font-size: 40px;
-        line-height: 49px;
-        color: #ffffff;
-        font-family: 'Playball',cursive;
-    }
 
-    img{
-        width: 51px;
-        height: 51px;
-        border-radius: 50%;
-        margin-right: 5px;
-    }
+
 
     @media(max-width: 375px) {
         div{
@@ -149,6 +136,19 @@ const NavBar = styled.div`
             margin-left: 180x;
         }
   }
+
+
+  .profile-picture{
+    width: 51px;
+        height: 51px;
+        border-radius: 50%;
+        margin-right: 5px;
+  }
+
+  .title{
+        width: 120px;
+        height: 35px;
+    }
 
 `
 

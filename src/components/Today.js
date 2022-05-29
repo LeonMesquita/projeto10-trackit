@@ -125,7 +125,7 @@ const TodayCompleted = styled.div`
     }
 
     @media(max-width: 375px) {
-        width: 100%;
+        width: 95%;
     }
 `
 
@@ -164,7 +164,7 @@ const HabitStatusCard = styled.div`
 
     @media(max-width: 375px) {
 
-        width: 100%;
+        width: 95%;
     }
 
 

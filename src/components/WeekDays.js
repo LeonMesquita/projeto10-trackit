@@ -26,6 +26,7 @@ export default function WeekDays({dayText, index, isLoading}){
         }
             
     }
+    
     return(
         <Day background={buttonColor} textColor={textColor} onClick={() => isLoading ? null : onClickButton(index)}>
             <h5>{dayText}</h5>
@@ -44,4 +45,6 @@ const Day = styled.button`
     font-family: 'Lexend Deca';
     cursor: pointer;
     margin-right: 4px;
+    font-size: 20px;
+    font-weight: 400;
 `

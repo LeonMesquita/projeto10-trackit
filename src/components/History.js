@@ -176,6 +176,13 @@ const DailyHabits = styled.div`
 
     }
 
+    @media(max-width: 375px) {
+
+      div{
+        width: 95%;
+      }
+}
+
 `
 
 
@@ -233,8 +240,6 @@ const CalendarDiv = styled.div`
 
 
 
-}
-
 .react-calendar--doubleView {
   width: 700px;
 }
@@ -260,7 +265,7 @@ const CalendarDiv = styled.div`
   outline: none;
   font-size: 17px;
   margin-top: 10px;
- 
+
 
 }
 .react-calendar button:enabled:hover {
@@ -353,6 +358,7 @@ const CalendarDiv = styled.div`
 .habits-completed{
   background-color: #8CC654;
   color: black;
+
   border-radius: 50%;
 }
 
@@ -360,6 +366,5 @@ const CalendarDiv = styled.div`
   background-color: #EA5766;
   border-radius: 50%;
   color: black;
-
 }
 `
