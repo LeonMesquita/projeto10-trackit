@@ -16,26 +16,17 @@ export default function Habits(){
     const [isDisabled, setIsDisabled] = useState(false);
     const [inputBackground, setInputBackground] = useState("#fffff");
     const [opacity, setOpacity] = useState(1);
-    const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays} = useContext(UserContext);
+    const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays, authorization} = useContext(UserContext);
 
     const weekdays = [
         'D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
     useEffect(() => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+    
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", authorization);
 
         promise.then(response => {
             setListOfHabits(response.data);
-
- 
-
-            
         });
     }, []);
 
@@ -46,18 +37,14 @@ export default function Habits(){
         setIsDisabled(true);
         setInputBackground("#F2F2F2");
         setOpacity(0.7);
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
+
 
         const habitBody = {
             name: habit,
             days: selectedDays
         }
 
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", habitBody, config);
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", habitBody, authorization);
        promise.then(response => {
            const aux = [...listOfHabits, response.data];
            setListOfHabits(aux);
@@ -66,6 +53,7 @@ export default function Habits(){
            setInputBackground("white");
            setOpacity(1);
             setIsCardActive(false);
+            
        })
               .catch(error =>{
                   console.log(error);

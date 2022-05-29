@@ -6,6 +6,7 @@ import { useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContext';
 import axios from 'axios';
 import { useState } from 'react';
+import LoaderSpinner from './LoaderSpinner';
 export default function GenericHabitsScreen(props){
     const {donePercent, setDonePercent, todayHabits, setTodayHabits, authorization, userPicture} = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,10 @@ export default function GenericHabitsScreen(props){
     }, [])
     return(
 
-       isLoading ? null : <MainHabitsScreen>
+       isLoading ? 
+      <LoaderSpinner loaderType="circle"/>
+       
+       : <MainHabitsScreen>
             <NavBar>
                 <div>
                     <img className='title' src='assets/images/title.png' alt=''/>
@@ -218,3 +222,5 @@ const TodayStatus = styled.span`
     font-weight: 700;
     
 `
+
+

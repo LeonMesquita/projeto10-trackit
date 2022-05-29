@@ -10,11 +10,12 @@ export default function Today(){
     const percent = calcPercent(donePercent, todayHabits.length);
     const dayjs = require('dayjs');
     const currentDay =returnDayOfWeek(dayjs().day());
+    const currentMonth = dayjs().month() < 10 ? '0'+dayjs().month() : dayjs().month();
 
     return(
         <GenericHabitsScreen>
             <TodayCompleted>
-                <p>{currentDay}, {dayjs().date()}/{dayjs().month()}</p>
+                <p>{currentDay}, {dayjs().date()}/{currentMonth}</p>
                 {donePercent === 0 ?
                     <h2>Nenhum hábito concluído ainda</h2>
                 :
@@ -26,7 +27,7 @@ export default function Today(){
                     null
                     :
                     todayHabits.map((habit) => 
-                    <HabitStatusCard>
+                    <HabitStatusCard color={habit.done ? "#8FC549" : null}>
                         <span>
                             <h4>{habit.name}</h4>
                             <h5>Sequência atual: {habit.currentSequence} dias</h5>
@@ -159,7 +160,10 @@ const HabitStatusCard = styled.div`
         font-size: 12.976px;
         line-height: 16px;
         color: #666666;
+        display: flex;
     }
+
+   
 
 
     @media(max-width: 375px) {
