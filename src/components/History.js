@@ -7,28 +7,27 @@ import Calendar from 'react-calendar';
 import dayjs from 'dayjs'
 export default function History(){
     const dayjs = require('dayjs');
-    const day = dayjs().format();
+   
     const {authorization} = useContext(UserContext);
     const [historyHabits, setHistoryHabits] = useState([]);
-    const [value, onChange] = useState(new Date());
+    const [day, onChange] = useState(new Date());
     const [dailyHabits, setDailyHabits] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() =>{
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily", authorization)
         promise.then(response => {
             setHistoryHabits(response.data);
-        })
+        });
     }, []);
 
 
-    function formatDate(date, locale){
-        //  console.log(date);
-         // console.log(locale);
+    function formatDate(date, d){
+          console.log(date);
+          console.log(d);
       }
       function clickDay(value){
         
         let selectedDay = dayjs(value).format('DD/MM/YYYY');
-        selectedDay = selectedDay
         setIsLoading(true);
         setDailyHabits([]);
        
@@ -41,19 +40,31 @@ export default function History(){
                 setIsLoading(false);
             }
         )
+
+      }
+
+      function setTileClass (date){
+        const currentDate= dayjs(date.date).format('DD/MM/YYYY');
+        const currentDayHabits = historyHabits.find(habit => habit.day === currentDate);
+        if(!currentDayHabits)
+          return ""
+        for(let cont = 0; cont < currentDayHabits.habits.length; cont++){
+          if (!currentDayHabits.habits[cont].done)
+            return "habits-incompleted";
+        }
+        return "habits-completed";
       }
     return(
         <GenericHabitsScreen>    
-                <Body>
-                <p>Histórico</p>
-
-                <CalendarDiv>
-                <Calendar onChange={onChange}  value={value} locale={"pt-br"} onClickDay={	(value) => clickDay(value)}/>
-                {console.log(value)}
+          <Body>
+            <p>Histórico</p>
+            <CalendarDiv>
+                <Calendar onChange={onChange}  value={day} locale={"pt-br"}
+                onClickDay={	(day) => clickDay(day)}
+                tileClassName={(date) => setTileClass(date)}
+                />
             </CalendarDiv>            
-                </Body>
-
-
+          </Body>
             {isLoading ? null : <>
               {dailyHabits.length !== 0 ?
               <DailyHabits>
@@ -79,11 +90,17 @@ export default function History(){
             </>}
 
         </GenericHabitsScreen>
+   
     );
 }
 
 
-
+const Teste = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: green;
+  border-radius: 50%;
+`
 
 
 const DailyHabits = styled.div`
@@ -200,6 +217,15 @@ const Body = styled.div`
 
 
 const CalendarDiv = styled.div`
+
+
+
+
+
+
+
+
+
   margin-top: 20px;
    .react-calendar {
   width: 350px;
@@ -234,8 +260,9 @@ const CalendarDiv = styled.div`
   border: 0;
   outline: none;
   font-size: 17px;
-  background: ${props => props.buttonColor};
   margin-top: 10px;
+ 
+
 }
 .react-calendar button:enabled:hover {
   cursor: pointer;
@@ -323,4 +350,17 @@ const CalendarDiv = styled.div`
   background-color: #e6e6e6;
 }
 
+
+.habits-completed{
+  background-color: #8CC654;
+  color: black;
+  border-radius: 50%;
+}
+
+.habits-incompleted{
+  background-color: #EA5766;
+  border-radius: 50%;
+  color: black;
+
+}
 `
