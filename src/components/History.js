@@ -82,7 +82,7 @@ export default function History(){
                    
                     )
                    }
-                    <button onClick={() => setIsLoading(true)}>sair</button>
+                    <button onClick={() => setIsLoading(true)}>Sair</button>
                 </div>
               </DailyHabits>
               : alert('Não existe nenhum hábito para este dia.')}
@@ -95,12 +95,7 @@ export default function History(){
 }
 
 
-const Teste = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: green;
-  border-radius: 50%;
-`
+
 
 
 const DailyHabits = styled.div`
@@ -122,7 +117,7 @@ const DailyHabits = styled.div`
         background-color: white;
         width: 360px;
         min-height: 200px;
-        max-height: 600px;
+        max-height: 60%;
         overflow-y: scroll; 
         border-radius: 20px;
         padding-left: 5px;
@@ -209,6 +204,13 @@ const Body = styled.div`
     text-align: start;
     align-self: baseline;
     }
+
+    @media(max-width: 375px) {
+  
+        width: 100%;
+
+}
+
 `
 
 
@@ -217,18 +219,10 @@ const Body = styled.div`
 
 
 const CalendarDiv = styled.div`
-
-
-
-
-
-
-
-
-
   margin-top: 20px;
+  margin-left: 8px;
    .react-calendar {
-  width: 350px;
+  width: 98%;
   height: 402px;
   max-width: 100%;
   background: white;
@@ -236,6 +230,11 @@ const CalendarDiv = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
 }
+
+
+
+}
+
 .react-calendar--doubleView {
   width: 700px;
 }

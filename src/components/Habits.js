@@ -176,6 +176,7 @@ const MyHabits = styled.div`
     justify-content: center;
     margin: auto;
     font-family: 'Lexend Deca',sans-serif;
+    
 
 
 
@@ -188,6 +189,9 @@ const MyHabits = styled.div`
         color: #126BA5;
     }
 
+    @media(max-width: 375px) {
+        width: 100%;
+    }
 
 
 `
@@ -252,6 +256,19 @@ const HabitCard = styled.div`
         margin-left: 15px;
         margin-top: 18px;
     }
+
+
+
+    @media(max-width: 375px) {
+        width: 100%;
+        padding-left: 5px;
+        padding-right: 5px;
+
+        input{
+            width: 90%;
+        }
+    }
+
 `
 
 const ActionButton = styled.button`

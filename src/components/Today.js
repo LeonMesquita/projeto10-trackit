@@ -123,6 +123,10 @@ const TodayCompleted = styled.div`
     margin-top: 0px;
 
     }
+
+    @media(max-width: 375px) {
+        width: 100%;
+    }
 `
 
 const HabitStatusCard = styled.div`
@@ -156,6 +160,14 @@ const HabitStatusCard = styled.div`
         line-height: 16px;
         color: #666666;
     }
+
+
+    @media(max-width: 375px) {
+
+        width: 100%;
+    }
+
+
 `
 
 const MarkHabit = styled.button`

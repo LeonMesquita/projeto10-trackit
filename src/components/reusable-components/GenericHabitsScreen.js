@@ -114,7 +114,7 @@ const NavBar = styled.div`
     
 
     div{
-        width: 375px;
+        width: 350px;
         height: 100%;
         display: flex;
         align-items: center;
@@ -134,7 +134,21 @@ const NavBar = styled.div`
         width: 51px;
         height: 51px;
         border-radius: 50%;
+        margin-right: 5px;
     }
+
+    @media(max-width: 375px) {
+        div{
+            width: 100%;
+        }
+
+        img{
+            margin-right: 18px;
+        }
+        h2{
+            margin-left: 180x;
+        }
+  }
 
 `
 
@@ -146,13 +160,14 @@ const Footer = styled.div`
     height: 70px;
 
     div{
-        width: 375px;
+        width: 350px;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin: auto;
         position: relative;
+
     }
 
     p{
@@ -163,11 +178,23 @@ const Footer = styled.div`
         line-height: 22px;
         text-align: center;
         color: #52B6FF;
-
+ 
     }
 
     a{
         text-decoration: none;
+
+    }
+
+    @media(max-width: 400px) {
+        div{
+            width: 100%;
+        }
+        
+        p{
+            margin-left:10px;
+        margin-right: 15px;
+        }
 
     }
 
@@ -178,7 +205,7 @@ const TodayStatus = styled.span`
     height: 100px;
     background: #52B6FF;
     bottom: 10px;
-    left: 37%;
+    left: 34%;
     border-radius: 50%;
     position: absolute;
     display: flex;
