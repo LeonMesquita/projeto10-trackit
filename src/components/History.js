@@ -267,6 +267,7 @@ const CalendarDiv = styled.div`
   margin-top: 10px;
 
 
+
 }
 .react-calendar button:enabled:hover {
   cursor: pointer;
@@ -358,13 +359,18 @@ const CalendarDiv = styled.div`
 .habits-completed{
   background-color: #8CC654;
   color: black;
-
   border-radius: 50%;
+
+
 }
 
 .habits-incompleted{
   background-color: #EA5766;
   border-radius: 50%;
   color: black;
+}
+
+button{
+  height: 40px;
 }
 `

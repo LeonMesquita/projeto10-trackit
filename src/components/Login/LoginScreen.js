@@ -15,10 +15,7 @@ export default function LoginScreen(){
     const [opacity, setOpacity] = useState(1);
 
     const StorageUser= JSON.parse(localStorage.getItem("user"));
-    console.log(StorageUser)
-
     if (StorageUser){
-        console.log(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", StorageUser);
         promise.then(response => {
             setToken(response.data.token);
@@ -41,21 +38,23 @@ export default function LoginScreen(){
             password
         }
 
-        const convertedBody = JSON.stringify(body);
-        localStorage.setItem("user", convertedBody);
+       
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body);
 
         promise.then(response => {
             setToken(response.data.token);
             setUserPicture(response.data.image);
+            const convertedBody = JSON.stringify(body);
+            localStorage.setItem("user", convertedBody);
             navigate('/hoje', { replace: true });
         })
-               .catch(error => {
-                   setIsLoading(false);
-                   setIsDisabled(false);
-                   setInputBackground("white");
-                   setOpacity(1);
+               .catch(() => {
+                    setIsLoading(false);
+                    setIsDisabled(false);
+                    setInputBackground("white");
+                    setOpacity(1);
+                    alert("Login inválido, tente novamente.");
                })
         
     }

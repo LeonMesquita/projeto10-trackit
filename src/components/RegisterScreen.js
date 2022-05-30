@@ -41,6 +41,8 @@ export default function RegisterScreen(){
                     setIsDisabled(false);
                     setInputBackground("white");
                     setOpacity(1);
+                    alert("Cadastro inválido, tente novamente.");
+
                })
     }
     return(
