@@ -69,7 +69,7 @@ export default function LoginScreen(){
             <form onSubmit={isLoading ? onLoading : submitLogin}>
                 <input disabled={isDisabled} type="email" placeholder='email' required value={email} onChange={(e) => setEmail(e.target.value)}/>
                 <input disabled={isDisabled} type="password" placeholder='senha' required value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button>{isLoading ?
+                <button disabled={isDisabled}>{isLoading ?
                             <LoaderSpinner />
                 : "Entrar"}</button>
             </form>

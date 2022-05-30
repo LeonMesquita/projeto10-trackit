@@ -72,18 +72,10 @@ export default function Habits(){
 
 
     function deleteHabit(){
+        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${selectedToDelete}`, authorization);
 
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-
-        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${selectedToDelete}`, config);
-
-        promise.then(response => {
-            const promise2 = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
-
+        promise.then(() => {
+            const promise2 = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", authorization);
             promise2.then(response => {
                 setListOfHabits(response.data);
                 setShowDialog(false);
@@ -116,8 +108,8 @@ export default function Habits(){
                             </DaysDiv>
                             
                             <span>
-                                <ActionButton onClick={() => setIsCardActive(false)} background="transparent" textColor="#52B6FF">Cancelar</ActionButton>
-                                <ActionButton opacity={opacity} background="#52B6FF" textColor="white" onClick={addNewHabit}>{isLoading ? <LoaderSpinner /> : "Salvar"}</ActionButton>
+                                <ActionButton disabled={isDisabled} onClick={() => setIsCardActive(false)} background="transparent" textColor="#52B6FF">Cancelar</ActionButton>
+                                <ActionButton disabled={isDisabled} opacity={opacity} background="#52B6FF" textColor="white" onClick={addNewHabit}>{isLoading ? <LoaderSpinner /> : "Salvar"}</ActionButton>
                             </span>
                     </HabitCard>
                     : null

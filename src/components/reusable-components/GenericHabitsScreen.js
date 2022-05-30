@@ -103,9 +103,6 @@ const MainHabitsScreen = styled.div`
 `
 
 const NavBar = styled.div`
-
-    @import url('https://fonts.googleapis.com/css2?family=Recursive&family=Righteous&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
     background: #126BA5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     height: 70px;

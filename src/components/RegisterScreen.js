@@ -6,12 +6,10 @@ import LoaderSpinner from './reusable-components/LoaderSpinner';
 
 export default function RegisterScreen(){
     const navigate = useNavigate();
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [photo, setPhoto] = useState('');
-
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [inputBackground, setInputBackground] = useState("#fffff");
@@ -32,11 +30,8 @@ export default function RegisterScreen(){
         }
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
-        promise.then(response => {
-            navigate('/', { replace: true });
-
-        })
-               .catch(error => {
+        promise.then(() => navigate('/', { replace: true }))
+               .catch(() => {
                     setIsLoading(false);
                     setIsDisabled(false);
                     setInputBackground("white");
