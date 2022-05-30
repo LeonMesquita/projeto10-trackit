@@ -9,7 +9,7 @@ import { useState } from 'react';
 import LoaderSpinner from './LoaderSpinner';
 export default function GenericHabitsScreen(props){
     const {donePercent, setDonePercent, todayHabits, setTodayHabits, authorization, userPicture} = useContext(UserContext);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isDataLoading, setIsDataLoading] = useState(true);
     useEffect(() => {
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", authorization);
         let doneCount = 0;
@@ -17,12 +17,12 @@ export default function GenericHabitsScreen(props){
             setTodayHabits(response.data);
             response.data.map((habit) => {if (habit.done) doneCount++});
             setDonePercent(doneCount);
-            setIsLoading(false);
+            setIsDataLoading(false);
         })
     }, [])
     return(
 
-       isLoading ? 
+        isDataLoading ? 
       <LoaderSpinner loaderType="circle"/>
        
        : <MainHabitsScreen>
@@ -82,7 +82,7 @@ const MainHabitsScreen = styled.div`
     position: relative;
     margin: auto;
     padding-bottom: 150px;
-    width: 100%;
+    min-width: 100vw;
 
 
 
@@ -209,7 +209,7 @@ const TodayStatus = styled.span`
     height: 100px;
     background: #52B6FF;
     bottom: 10px;
-    left: 34%;
+    left: calc(50% - 55px);
     border-radius: 50%;
     position: absolute;
     display: flex;

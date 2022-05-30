@@ -11,6 +11,7 @@ export default function Today(){
     const dayjs = require('dayjs');
     const currentDay =returnDayOfWeek(dayjs().day());
     const currentMonth = dayjs().month() < 10 ? '0'+dayjs().month() : dayjs().month();
+    
 
     return(
         <GenericHabitsScreen>

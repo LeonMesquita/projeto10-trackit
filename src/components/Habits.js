@@ -18,8 +18,7 @@ export default function Habits(){
     const [opacity, setOpacity] = useState(1);
     const {token, listOfHabits, setListOfHabits, selectedDays, setSelectedDays, authorization} = useContext(UserContext);
 
-    const weekdays = [
-        'D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+    const weekdays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
     useEffect(() => {
     
